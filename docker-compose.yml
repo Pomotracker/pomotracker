@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
+    depends_on:
+      pomoDB:
+        condition: service_healthy
+    container_name: local_keycloak
+    command: -v start-dev
+    networks:
+      - db
+    volumes:
+       - keycloak_data:/var/lib/postgresql/data
+       - ./initdb:/docker-entrypoint-initdb.d
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_DB: postgres
+      KC_DB_URL_HOST: pomoDB
+      KC_DB_URL_DATABASE: pomotracker
+      KC_DB_URL_PORT: 5432
+      KC_DB_USERNAME: ${KC_DB_USERNAME}
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD}
+    ports:
+      - "28080:8080"
+    restart: unless-stopped
+
+
+  pomoDB:
+    container_name: pomoDB
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - db
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - pomotracker_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tommy -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  pomotracker_data:
+    driver: local
+  keycloak_data:
+    driver: local
+
+networks:
+  db:
+    driver: bridge
