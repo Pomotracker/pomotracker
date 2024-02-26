@@ -1,16 +1,31 @@
 version: '3.8'
 
 services:
-  psql:
-    image: postgres:latest
+  db:
+    container_name: pomoDB
+    image: postgres:16
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - db
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      - psql_volume:/var/lib/postgresql/data
+      - pomotracker_data:/var/lib/postgresql/data
+      - ./initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tommy -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
 
 volumes:
-  psql_volume:
+  pomotracker_data:
+    driver: local
+
+networks:
+  db:
+    driver: bridge
