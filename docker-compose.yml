@@ -23,7 +23,7 @@ services:
       KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
     ports:
-      - "28080:8080"
+      - "8080:8080"
     restart: unless-stopped
 
 

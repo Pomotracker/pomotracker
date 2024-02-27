@@ -4,10 +4,8 @@ import (
 	"fmt"
 	"os"
 	"pomotracker/internal/database"
-	"pomotracker/internal/server/dao"
-	"pomotracker/internal/server/handler"
+	handler "pomotracker/internal/server/handler/auth"
 	"pomotracker/internal/server/route"
-	"pomotracker/internal/server/service"
 	"strconv"
 
 	"github.com/gofiber/fiber/v2"
@@ -24,11 +22,9 @@ func main() {
 
 	server := fiber.New()
 
-	eDAO := dao.InitExampleDAO(db)
-	eService := service.InitExampleService(eDAO)
-	eHandler := handler.InitExampleHandler(eService)
+	aHandler := handler.InitAuthHandler()
 
-	route.SetupExampleRoute(server, eHandler)
+	route.SetupAuthRoute(server, *aHandler)
 
 	port, _ := strconv.Atoi(os.Getenv("PORT"))
 	err := server.Listen(fmt.Sprintf(":%d", port))
