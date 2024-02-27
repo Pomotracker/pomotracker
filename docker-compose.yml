@@ -1,11 +1,23 @@
 version: '3.8'
 
 services:
+  pomotracker:
+    container_name: pomotracker
+    build:
+      context: ./backend/pomotracker
+      dockerfile: Dockerfile
+    depends_on: 
+      pomoDB:
+        condition: service_healthy
+    networks: 
+      - db
+    ports:
+     - "8082:8080"
+
   keycloak:
     image: quay.io/keycloak/keycloak:${KEYCLOAK_VERSION}
     depends_on:
-      pomoDB:
-        condition: service_healthy
+      - pomotracker
     container_name: local_keycloak
     command: -v start-dev
     networks:
@@ -23,9 +35,8 @@ services:
       KC_DB_USERNAME: ${KC_DB_USERNAME}
       KC_DB_PASSWORD: ${KC_DB_PASSWORD}
     ports:
-      - "8080:8080"
+      - "8084:8080"
     restart: unless-stopped
-
 
   pomoDB:
     container_name: pomoDB
