@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"pomotracker/internal/model"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -27,8 +26,6 @@ func SetupDB() *gorm.DB {
 	if err != nil {
 		log.Panic("error connecting to db", err)
 	}
-
-	db.AutoMigrate(&model.ExampleModel{})
 
 	return db
 }

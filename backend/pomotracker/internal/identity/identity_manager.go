@@ -28,6 +28,7 @@ func NewIdentityManager() *IdentityManager {
 
 // this function is responsible for connecting this backend api to the keycloak server before doing any other operations
 func (im *IdentityManager) loginRestApiClient(ctx context.Context) (*gocloak.JWT, error) {
+
 	client := gocloak.NewClient(im.baseUrl)
 
 	token, err := client.LoginClient(ctx, im.restApiClientId, im.restApiClientSecret, im.realm)
@@ -39,8 +40,7 @@ func (im *IdentityManager) loginRestApiClient(ctx context.Context) (*gocloak.JWT
 	return token, nil
 }
 
-func (im *IdentityManager) CreateUserAndToken(ctx context.Context, user gocloak.User, password string, role string) (*gocloak.User, *gocloak.JWT, error) {
-
+func (im *IdentityManager) CreateUser(ctx context.Context, user gocloak.User, password string, role string) (*gocloak.User, *gocloak.JWT, error) {
 	token, err := im.loginRestApiClient(ctx)
 	if err != nil {
 		return nil, nil, err
@@ -77,4 +77,21 @@ func (im *IdentityManager) CreateUserAndToken(ctx context.Context, user gocloak.
 	}
 
 	return userKeycloak, token, nil
+}
+
+func (im *IdentityManager) LoginUser(ctx context.Context, username string, password string) (*gocloak.JWT, error) {
+	_, err := im.loginRestApiClient(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	client := gocloak.NewClient(im.baseUrl)
+
+	userToken, err := client.Login(ctx, im.restApiClientId, im.restApiClientSecret, im.realm, username, password)
+	if err != nil {
+		return nil, err
+	}
+
+	return userToken, nil
 }

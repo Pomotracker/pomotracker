@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/Nerzal/gocloak/v13"
@@ -18,15 +19,16 @@ type RegisterRequest struct {
 }
 
 type RegisterResponse struct {
-	User  *gocloak.User
-	Token *gocloak.JWT
+	User *gocloak.User
 }
 
 func (ah *AuthHandler) RegisterUser(c *fiber.Ctx) error {
+
 	var request RegisterRequest
 	err := c.BodyParser(&request)
 
 	if err != nil {
+		fmt.Println("ERROR")
 		return err
 	}
 
@@ -34,6 +36,7 @@ func (ah *AuthHandler) RegisterUser(c *fiber.Ctx) error {
 	err = validate.Struct(request)
 
 	if err != nil {
+		fmt.Println(err)
 		return err
 	}
 
@@ -51,12 +54,13 @@ func (ah *AuthHandler) RegisterUser(c *fiber.Ctx) error {
 		(*user.Attributes)["mobile"] = []string{request.MobileNumber}
 	}
 
-	userResponse, token, err := ah.IdentityManager.CreateUserAndToken(c.UserContext(), user, request.Password, "viewer")
+	userResponse, _, err := ah.IdentityManager.CreateUser(c.UserContext(), user, request.Password, "user")
 
 	if err != nil {
+		fmt.Print(err)
 		return err
 	}
-
-	var response = &RegisterResponse{User: userResponse, Token: token}
+	fmt.Println("end of handler")
+	var response = &RegisterResponse{User: userResponse}
 	return c.Status(200).JSON(response)
 }
