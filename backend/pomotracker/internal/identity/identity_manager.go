@@ -114,3 +114,21 @@ func (im *IdentityManager) LogoutUser(ctx context.Context, refreshToken string) 
 
 	return nil
 }
+
+func (im *IdentityManager) Refresh(ctx context.Context, refreshToken string) (*gocloak.JWT, error) {
+	_, err := im.loginRestApiClient(ctx)
+
+	if err != nil {
+		return nil, err
+	}
+
+	client := gocloak.NewClient(im.baseUrl)
+
+	token, err := client.RefreshToken(ctx, refreshToken, im.restApiClientId, im.restApiClientSecret, im.realm)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return token, err
+}
