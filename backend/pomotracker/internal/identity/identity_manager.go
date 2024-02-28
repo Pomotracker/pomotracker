@@ -95,3 +95,22 @@ func (im *IdentityManager) LoginUser(ctx context.Context, username string, passw
 
 	return userToken, nil
 }
+
+func (im *IdentityManager) LogoutUser(ctx context.Context, refreshToken string) error {
+	_, err := im.loginRestApiClient(ctx)
+
+	if err != nil {
+		fmt.Println("ERORR HERE?")
+		return err
+	}
+
+	client := gocloak.NewClient(im.baseUrl)
+	err = client.Logout(ctx, im.restApiClientId, im.restApiClientSecret, im.realm, refreshToken)
+
+	if err != nil {
+		fmt.Println("ERROR IN LOGOUT SESSION", err)
+		return err
+	}
+
+	return nil
+}

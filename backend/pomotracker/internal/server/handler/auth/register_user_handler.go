@@ -60,7 +60,7 @@ func (ah *AuthHandler) RegisterUser(c *fiber.Ctx) error {
 		fmt.Print(err)
 		return err
 	}
-	fmt.Println("end of handler")
+
 	var response = &RegisterResponse{User: userResponse}
 	return c.Status(200).JSON(response)
 }
