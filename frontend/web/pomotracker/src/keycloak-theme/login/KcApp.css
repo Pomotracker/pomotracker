@@ -1,0 +1,27 @@
+
+.my-color {
+	color: white;
+}
+
+.my-font {
+	font-family: 'Work Sans';
+}
+
+.my-root-class {
+	background: black;
+}
+
+.my-root-class body {
+	background: black;
+}
+
+.kcFormCardClass{
+	border-radius: 5rem;
+	min-width:70dvw;
+}
+
+.kcInputClass{
+	border-radius: 30rem;
+	min-height:8dvh;
+	padding:2rem;
+}

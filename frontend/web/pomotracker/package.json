@@ -7,11 +7,31 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-keycloak-theme": "npm run build && keycloakify",
+    "build-storybook": "storybook build"
+  },
+  "keycloakify": {
+    "themeName": "pomotracker",
+    "extraThemeProperties": [
+      "foo=bar"
+    ]
   },
   "dependencies": {
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/addon-onboarding": "^1.0.11",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-vite": "^7.6.17",
+    "axios": "^1.6.7",
+    "keycloak-js": "^23.0.7",
+    "keycloakify": "^9.5.5",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "storybook": "^7.6.17"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

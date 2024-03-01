@@ -19,12 +19,12 @@ services:
     depends_on:
       - pomotracker
     container_name: local_keycloak
-    command: -v start-dev
+    command: ["start-dev", "--features=declarative-user-profile"]
     networks:
       - db
     volumes:
-       - keycloak_data:/var/lib/postgresql/data
-       - ./initdb:/docker-entrypoint-initdb.d
+      - ./frontend/web/pomotracker/dist_keycloak/target/pomotracker-keycloak-theme-0.0.0.jar:/opt/keycloak/providers/pomotracker-keycloak-theme-0.0.0.jar
+      - ./frontend/web/pomotracker/dist_keycloak/src/main/resources/theme/pomotracker:/opt/keycloak/themes/pomotracker:rw
     environment:
       KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN}
       KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
