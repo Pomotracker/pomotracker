@@ -81,7 +81,7 @@ export default function Login(
               social.providers !== undefined &&
               getClassName("kcContentWrapperClass")
           ),
-          "row")
+          "flex justify-center items-center h-screen")
         }
       >
         <div
@@ -94,7 +94,7 @@ export default function Login(
                   getClassName("kcFormSocialAccountClass"),
                 ]
             ),
-            "col-xs-12 col-sm-6")
+            "flex-col justify-center items-center flex-1 mx-4")
           }
         >
           {realm.password && (
@@ -257,6 +257,10 @@ export default function Login(
             </ul>
           </div>
         )}
+
+        <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4">
+          hello
+        </div>
       </div>
     </Template>
   );

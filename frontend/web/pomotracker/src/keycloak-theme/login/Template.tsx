@@ -42,6 +42,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
       `${url.resourcesCommonPath}/lib/zocial/zocial.css`,
       `${url.resourcesPath}/css/login.css`,
     ],
+    scripts: ["https://cdn.tailwindcss.com"],
     htmlClassName: getClassName("kcHtmlClass"),
     bodyClassName: getClassName("kcBodyClass"),
   });
