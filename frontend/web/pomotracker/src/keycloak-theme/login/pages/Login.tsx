@@ -6,6 +6,8 @@ import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
 
+// import loginHeaderSvgUrl from "../assets/login-header.svg";
+
 const my_custom_param = new URL(window.location.href).searchParams.get(
   "my_custom_param"
 );
@@ -63,7 +65,7 @@ export default function Login(
       displayWide={true}
       headerNode={msg("doLogIn")}
       infoNode={
-        <div id="kc-registration">
+        <div id="kc-registration" className={"text-white text-center mt-3"}>
           <span>
             {msg("noAccount")}
             <a tabIndex={6} href={url.registrationUrl}>
@@ -81,7 +83,7 @@ export default function Login(
               social.providers !== undefined &&
               getClassName("kcContentWrapperClass")
           ),
-          "flex justify-center items-center h-screen")
+          "flex justify-center items-center, justify-items-center")
         }
       >
         <div
@@ -97,12 +99,26 @@ export default function Login(
             "flex-col justify-center items-center flex-1 mx-4")
           }
         >
+          <div className="flex flex-col justify-center items-center pb-[6vh] text-white">
+            <div className="flex flex-col items-center pb-3">
+              <span className="text-6xl  font-bold ">Pomotracker</span>
+              {/* <img src={loginHeaderSvgUrl} width="40px" /> */}
+            </div>
+            <div className="pb-2">
+              <h1 className="text-4xl font-semibold">Time To Hone In</h1>
+            </div>
+            <div className="pb-2">
+              <h3 className="text-center">Enter your login credentials</h3>
+            </div>
+          </div>
+
           {realm.password && (
             <form
               id="kc-form-login"
               onSubmit={onSubmit}
               action={url.loginAction}
               method="post"
+              className={"flex flex-col justify-center items-center"}
             >
               <div className={getClassName("kcFormGroupClass")}>
                 {!usernameHidden &&
@@ -120,7 +136,9 @@ export default function Login(
                       <>
                         <label
                           htmlFor={autoCompleteHelper}
-                          className={getClassName("kcLabelClass")}
+                          className={
+                            (getClassName("kcLabelClass"), "text-white")
+                          }
                         >
                           {msg(label)}
                         </label>
@@ -144,7 +162,7 @@ export default function Login(
               <div className={getClassName("kcFormGroupClass")}>
                 <label
                   htmlFor="password"
-                  className={getClassName("kcLabelClass")}
+                  className={(getClassName("kcLabelClass"), "text-white")}
                 >
                   {msg("password")}
                 </label>
@@ -166,7 +184,7 @@ export default function Login(
                 <div id="kc-form-options">
                   {realm.rememberMe && !usernameHidden && (
                     <div className="checkbox">
-                      <label>
+                      <label className="text-white">
                         <input
                           tabIndex={3}
                           id="rememberMe"
@@ -183,7 +201,11 @@ export default function Login(
                     </div>
                   )}
                 </div>
-                <div className={getClassName("kcFormOptionsWrapperClass")}>
+                <div
+                  className={
+                    (getClassName("kcFormOptionsWrapperClass"), "text-white")
+                  }
+                >
                   {realm.resetPasswordAllowed && (
                     <span>
                       <a tabIndex={5} href={url.loginResetCredentialsUrl}>
@@ -193,10 +215,7 @@ export default function Login(
                   )}
                 </div>
               </div>
-              <div
-                id="kc-form-buttons"
-                className={getClassName("kcFormGroupClass")}
-              >
+              <div className={getClassName("kcFormGroupClass")}>
                 <input
                   type="hidden"
                   id="id-hidden-input"
@@ -210,10 +229,9 @@ export default function Login(
                 <input
                   tabIndex={4}
                   className={clsx(
-                    getClassName("kcButtonClass"),
-                    getClassName("kcButtonPrimaryClass"),
                     getClassName("kcButtonBlockClass"),
-                    getClassName("kcButtonLargeClass")
+                    getClassName("kcButtonLargeClass"),
+                    "rounded-xl min-h-[7dvh] bg-blue-500 hover:bg-blue-700 text-white"
                   )}
                   name="login"
                   id="kc-login"
@@ -258,9 +276,9 @@ export default function Login(
           </div>
         )}
 
-        <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4">
+        {/* <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4">
           hello
-        </div>
+        </div> */}
       </div>
     </Template>
   );

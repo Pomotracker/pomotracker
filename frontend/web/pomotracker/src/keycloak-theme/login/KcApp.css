@@ -8,22 +8,39 @@
 }
 
 .my-root-class {
-	background: black;
+	background: linear-gradient(-90deg, #000000, #444444, #666666, #888888);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
+	
 }
 
 .my-root-class body {
-	background: black;
+	background: linear-gradient(-90deg, #000000, #444444, #666666, #888888);
+	background-size: 400% 400%;
+	animation: gradient 5s ease infinite;
+	height: 100vh;
 }
 
 .kcFormCardClass{
 	border-radius: 5rem;
-	min-width:70dvw;
+	min-width:50dvw;
 }
 
 .kcInputClass{
-	border-radius: 30rem;
-	min-height:8dvh;
-	padding:2rem;
+	border-radius: 1rem;
+	min-width:20dvw;
+	min-height:5dvh;
 }
 
 
+@keyframes gradient {
+	0% {
+	background-position: 0% 50%;
+	}
+	50% {
+	background-position: 100% 50%;
+	}
+	100% {
+	background-position: 0% 50%;
+	}
+}

@@ -8,7 +8,7 @@ import { type TemplateProps } from "keycloakify/login/TemplateProps";
 import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
-import keycloakifyLogoPngUrl from "./assets/keycloakify-logo.png";
+import Circle from "../../components/Circle";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
   const {
@@ -17,7 +17,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
     displayRequiredFields = false,
     displayWide = false,
     showAnotherWayIfPresent = true,
-    headerNode,
+    // headerNode,
     showUsernameNode = null,
     infoNode = null,
     kcContext,
@@ -56,27 +56,12 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
   }
 
   return (
-    <div className={getClassName("kcLoginClass")}>
-      <div id="kc-header" className={getClassName("kcHeaderClass")}>
-        <div
-          id="kc-header-wrapper"
-          className={getClassName("kcHeaderWrapperClass")}
-          style={{ fontFamily: '"Work Sans"' }}
-        >
-          {/* 
-                        Here we are referencing the `keycloakify-logo.png` in the `public` directory.  
-                        When possible don't use this approach, instead ...
-                    */}
-          {msg("loginTitleHtml", realm.displayNameHtml)}!!!
-          {/* ...rely on the bundler to import your assets, it's more efficient */}
-          <img src={keycloakifyLogoPngUrl} alt="Keycloakify logo" width={50} />
-        </div>
-      </div>
-
+    <div className={"mt-0"}>
       <div
         className={clsx(
           getClassName("kcFormCardClass"),
-          displayWide && getClassName("kcFormCardAccountClass")
+          displayWide && getClassName("kcFormCardAccountClass"),
+          "min-w-[75dvw] min-h-[90dvh] bg-transparent"
         )}
       >
         <header className={getClassName("kcFormHeaderClass")}>
@@ -123,12 +108,13 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                     {msg("requiredFields")}
                   </span>
                 </div>
-                <div className="col-md-10">
+                {/* <div className="col-md-10">
                   <h1 id="kc-page-title">{headerNode}</h1>
-                </div>
+                </div> */}
               </div>
             ) : (
-              <h1 id="kc-page-title">{headerNode}</h1>
+              // <h1 id="kc-page-title">{headerNode}</h1>
+              <span></span>
             )
           ) : displayRequiredFields ? (
             <div className={getClassName("kcContentWrapperClass")}>
@@ -261,6 +247,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 >
                   {infoNode}
                 </div>
+                <Circle radius={100} dotRadius={3} numDots={20} />
               </div>
             )}
           </div>
