@@ -90,7 +90,7 @@ export default function Login(
         }
       >
         <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4 mt-20">
-          <Timer size={400} strokeWidth={10} time={360} />
+          <Timer size={400} strokeWidth={10} time={10} />
         </div>
         <div
           id="kc-form-wrapper"

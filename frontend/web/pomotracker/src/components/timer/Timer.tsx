@@ -10,7 +10,7 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
   const [timerActive, setTimerActive] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const [currTime, setCurrTime] = useState<number>(time);
-  const [displayTime, setDisplayTime] = useState<number>(time - 1);
+  const [displayTime, setDisplayTime] = useState<number>(time);
   const [progress, setProgress] = useState(100);
 
   function handleClick() {
@@ -27,7 +27,7 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
     }
 
     return () => {
-      if (timeoutId !== null && (currTime <= 1 || !timerActive)) {
+      if (timeoutId !== null && (currTime <= 0 || !timerActive)) {
         setTimerActive(false);
         clearInterval(timeoutId);
       }
@@ -53,7 +53,7 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
         <motion.circle
           className="svg-indicator-indication"
           initial={{
-            pathLength: 1,
+            pathLength: 1.1,
           }}
           animate={{
             pathLength: 1 - (100 - progress) / (2 * 100),
