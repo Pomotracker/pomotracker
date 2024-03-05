@@ -7,12 +7,15 @@ interface TimerProps {
   time: number;
 }
 const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
-  const [timerActive, setTimerActive] = useState(true);
+  const [timerActive, setTimerActive] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-  const [currTime, setCurrTime] = useState<number>(time - 1);
-  const [displayTime, setDisplayTime] = useState<number>(time);
-  const [progress, setProgress] = useState(10);
+  const [currTime, setCurrTime] = useState<number>(time);
+  const [displayTime, setDisplayTime] = useState<number>(time - 1);
+  const [progress, setProgress] = useState(100);
 
+  function handleClick() {
+    setTimerActive(!timerActive);
+  }
   useEffect(() => {
     if (timerActive && timeoutId === null) {
       setCurrTime((prevCurrTime) => prevCurrTime - 1);
@@ -24,7 +27,7 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
     }
 
     return () => {
-      if (timeoutId !== null && (currTime <= 0 || !timerActive)) {
+      if (timeoutId !== null && (currTime <= 1 || !timerActive)) {
         setTimerActive(false);
         clearInterval(timeoutId);
       }
@@ -32,58 +35,52 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
   }, [timerActive, currTime, timeoutId]);
 
   useEffect(() => {
-    setProgress(((time - currTime) / time) * 100 - 10);
-    console.log("time", time, currTime);
-    // console.log(progress, progress);
-    console.log((100 - progress / 2) / 100);
+    setProgress((currTime / time) * 100);
   }, [currTime, time]);
 
   return (
-    <motion.svg version="1.1" className={`w-[${size}px] h-[${size}px`}>
-      <clipPath id="cut-off">
-        <rect x="0" y="0" width={`${size}`} height={`${size / 2}`} />
-      </clipPath>
-
-      <circle
-        cx={`${size / 2}px`}
-        cy={`${size / 2}px`}
-        r={`${size / 2 - strokeWidth}`}
-        strokeWidth={`${strokeWidth}px`}
-        stroke="#ddd"
-        fill="transparent"
-        className="svg-indicator-track"
-        clip-path="url(#cut-off)"
-      />
-      <motion.circle
-        className="svg-indicator-indication"
-        initial={{
-          pathLength: 1,
-          clipPath: "url(#cut-off)",
-        }}
-        animate={{
-          pathLength: currTime === time ? 0.9 : (100 - progress / 2) / 100,
-        }}
-        transition={{
-          ease: "linear",
-          duration: 1,
-        }}
-        cx={`${size / 2}px`}
-        cy={`${size / 2}px`}
-        r={`${size / 2 - strokeWidth}`}
-        strokeWidth={`${strokeWidth}px`}
-        stroke="#07c"
-        fill="transparent"
-      />
-      <text
-        x={`${size / 2}px`}
-        y={`${size * 0.3}px`}
-        textAnchor="middle"
-        fill="#ffffff"
-        fontSize={50}
-      >
-        {currTime + 1 === time ? time : displayTime - 1}
-      </text>
-    </motion.svg>
+    <div>
+      <motion.svg version="1.1" className={`w-[${size}px] h-[${size / 2}px]`}>
+        <circle
+          cx={`${size / 2}px`}
+          cy={`${size / 2}px`}
+          r={`${size / 2 - strokeWidth}`}
+          strokeWidth={`${strokeWidth}px`}
+          stroke="#ddd"
+          fill="transparent"
+          className="svg-indicator-track"
+        />
+        <motion.circle
+          className="svg-indicator-indication"
+          initial={{
+            pathLength: 1,
+          }}
+          animate={{
+            pathLength: 1 - (100 - progress) / (2 * 100),
+          }}
+          transition={{
+            ease: "linear",
+            duration: 1,
+          }}
+          cx={`${size / 2}px`}
+          cy={`${size / 2}px`}
+          r={`${size / 2 - strokeWidth}`}
+          strokeWidth={`${strokeWidth}px`}
+          stroke="#07c"
+          fill="transparent"
+        />
+        <text
+          x={`${size / 2}px`}
+          y={`${size * 0.3}px`}
+          textAnchor="middle"
+          fill="#ffffff"
+          fontSize={50}
+        >
+          {currTime === time && !timerActive ? time : displayTime}
+        </text>
+      </motion.svg>
+      <button onClick={() => handleClick()}>start</button>
+    </div>
   );
 };
 
