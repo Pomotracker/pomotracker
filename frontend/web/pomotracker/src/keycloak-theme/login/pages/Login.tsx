@@ -8,6 +8,9 @@ import type { I18n } from "../i18n";
 
 // import loginHeaderSvgUrl from "../assets/login-header.svg";
 
+import userLoginIconSvgUrl from "../assets/user-login-icon.svg";
+import Timer from "../../../components/timer/Timer";
+
 const my_custom_param = new URL(window.location.href).searchParams.get(
   "my_custom_param"
 );
@@ -65,7 +68,7 @@ export default function Login(
       displayWide={true}
       headerNode={msg("doLogIn")}
       infoNode={
-        <div id="kc-registration" className={"text-white text-center mt-3"}>
+        <div id="kc-registration" className={"text-center mt-3, text-white"}>
           <span>
             {msg("noAccount")}
             <a tabIndex={6} href={url.registrationUrl}>
@@ -86,6 +89,9 @@ export default function Login(
           "flex justify-center items-center, justify-items-center")
         }
       >
+        <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4 mt-20">
+          <Timer size={400} strokeWidth={10} time={10} />
+        </div>
         <div
           id="kc-form-wrapper"
           className={
@@ -99,16 +105,22 @@ export default function Login(
             "flex-col justify-center items-center flex-1 mx-4")
           }
         >
-          <div className="flex flex-col justify-center items-center pb-[6vh] text-white">
+          <div className="flex flex-col justify-center items-center pb-[6vh]">
             <div className="flex flex-col items-center pb-3">
-              <span className="text-6xl  font-bold ">Pomotracker</span>
+              <span className="text-6xl text-white font-bold ">
+                Pomotracker
+              </span>
               {/* <img src={loginHeaderSvgUrl} width="40px" /> */}
             </div>
             <div className="pb-2">
-              <h1 className="text-4xl font-semibold">Time To Hone In</h1>
+              <h1 className="text-4xl font-semibold text-white">
+                Time To Hone In
+              </h1>
             </div>
             <div className="pb-2">
-              <h3 className="text-center">Enter your login credentials</h3>
+              <h3 className="text-center text-white">
+                Enter your login credentials
+              </h3>
             </div>
           </div>
 
@@ -155,6 +167,7 @@ export default function Login(
                           autoFocus={true}
                           autoComplete="off"
                         />
+                        <img src={userLoginIconSvgUrl} />
                       </>
                     );
                   })()}
@@ -275,10 +288,6 @@ export default function Login(
             </ul>
           </div>
         )}
-
-        {/* <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4">
-          hello
-        </div> */}
       </div>
     </Template>
   );

@@ -11,7 +11,7 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
   const [scope, animate] = useAnimate();
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
-  const [angle, setAngle] = useState(90);
+  const [angle, setAngle] = useState(0);
 
   async function myAnimation(angle: number, x: number, y: number) {
     await animate(
@@ -24,7 +24,7 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
     );
     await animate(
       scope.current,
-      { x, y },
+      { x: x, y: y },
       {
         type: "tween",
         ease: "linear",
@@ -46,9 +46,13 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
   }
 
   useEffect(() => {
+    console.log("angle", angle);
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
       // increase the angle of rotation
-      setAngle(angle + 0.5);
+      setAngle(angle - 0.2);
       // if (angle >= 360) {
       //   setAngle(1);
       // } else {
@@ -58,8 +62,6 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
       // calculate the new ball.x / ball.y
       setX(radius * Math.cos((angle * Math.PI) / 180)); // Convert angle to radians
       setY(radius * Math.sin((angle * Math.PI) / 180)); // Convert angle to radians
-      console.log("coords", x, y);
-      console.log(angle);
 
       myAnimation(angle, x, y);
     }, 10); // Decreased interval for smoother animation
@@ -72,10 +74,16 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
   // }, []);
 
   return (
-    <motion.div
-      className="fixed w-[50px] h-[10px] border-white border-solid bg-red-800"
-      ref={scope}
-    />
+    <div>
+      <motion.div
+        className="w-[100px] h-[10px] bottom-0 border-white border-solid bg-red-800 rounded-md"
+        ref={scope}
+      />
+      <motion.div
+        className=" w-[100px] h-[10px] bottom-0 border-white border-solid bg-red-800 rounded-md"
+        ref={scope}
+      />
+    </div>
   );
 };
 

@@ -61,7 +61,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
         className={clsx(
           getClassName("kcFormCardClass"),
           displayWide && getClassName("kcFormCardAccountClass"),
-          "min-w-[75dvw] min-h-[90dvh] bg-transparent"
+          "min-w-[80dvw] min-h-[90dvh] bg-transparent"
         )}
       >
         <header className={getClassName("kcFormHeaderClass")}>
@@ -247,7 +247,6 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 >
                   {infoNode}
                 </div>
-                <Circle radius={100} dotRadius={3} numDots={20} />
               </div>
             )}
           </div>

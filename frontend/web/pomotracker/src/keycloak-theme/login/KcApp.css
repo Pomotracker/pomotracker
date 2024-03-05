@@ -8,16 +8,13 @@
 }
 
 .my-root-class {
-	background: linear-gradient(-90deg, #000000, #444444, #666666, #888888);
-	background-size: 400% 400%;
+	background: black;
 	animation: gradient 5s ease infinite;
 	
 }
 
 .my-root-class body {
-	background: linear-gradient(-90deg, #000000, #444444, #666666, #888888);
-	background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
+	background:black;
 	height: 100vh;
 }
 
