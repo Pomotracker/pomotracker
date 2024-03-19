@@ -15,18 +15,16 @@ const useKeycloak = () => {
       keycloak
         .init({
           onLoad: "login-required" as KeycloakOnLoad,
-          checkLoginIframe: true,
+          // checkLoginIframe: false,
           pkceMethod: "S256",
         })
         .then(
           (auth) => {
-            if (!auth) {
-              window.location.reload();
-            } else {
-              console.info("Authenticated");
-              console.log("auth", auth);
-              console.log("Keycloak");
+            if (auth) {
               setAuthenticated(true);
+            } else {
+              console.log("hello");
+              // setAuthenticated(true);
             }
           },
           (err: Error) => {

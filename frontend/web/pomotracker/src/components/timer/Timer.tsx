@@ -6,6 +6,24 @@ interface TimerProps {
   strokeWidth: number;
   time: number;
 }
+
+const variants = {
+  show: {
+    opacity: 1,
+    transition: {
+      ease: "easeOut",
+      duration: 0.5,
+    },
+  },
+  hide: {
+    opacity: 0,
+    transition: {
+      ease: "easeOut",
+      duration: 0.5,
+    },
+  },
+};
+
 const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
   const [timerActive, setTimerActive] = useState(false);
   const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
@@ -16,6 +34,7 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
   function handleClick() {
     setTimerActive(!timerActive);
   }
+
   useEffect(() => {
     if (timerActive && timeoutId === null) {
       setCurrTime((prevCurrTime) => prevCurrTime - 1);
@@ -40,12 +59,12 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
 
   return (
     <div>
-      <motion.svg version="1.1" className={`w-[${size}px] h-[${size / 2}px]`}>
+      <motion.svg version="1.1" width={size} height={size / 4}>
         <circle
-          cx={`${size / 2}px`}
-          cy={`${size / 2}px`}
-          r={`${size / 2 - strokeWidth}`}
-          strokeWidth={`${strokeWidth}px`}
+          cx={`${size / 2}`}
+          cy={`${size / 4}`}
+          r={`${size / 4 - strokeWidth}`}
+          strokeWidth={`${strokeWidth}`}
           stroke="#ddd"
           fill="transparent"
           className="svg-indicator-track"
@@ -62,22 +81,26 @@ const Timer: React.FC<TimerProps> = ({ size, strokeWidth, time }) => {
             ease: "linear",
             duration: 1,
           }}
-          cx={`${size / 2}px`}
-          cy={`${size / 2}px`}
-          r={`${size / 2 - strokeWidth}`}
-          strokeWidth={`${strokeWidth}px`}
+          cx={`${size / 2}`}
+          cy={`${size / 4}`}
+          r={`${size / 4 - strokeWidth}`}
+          strokeWidth={`${strokeWidth}`}
           stroke="#07c"
           fill="transparent"
         />
-        <text
-          x={`${size / 2}px`}
-          y={`${size * 0.3}px`}
+        <motion.text
+          x={`${size / 2}`}
+          y={`${size * 0.15}`}
+          key={displayTime}
           textAnchor="middle"
-          fill="#ffffff"
           fontSize={50}
+          initial={"hide"}
+          animate={"show"}
+          transition={{ ease: "easeInOut", duration: 1 }}
+          variants={variants}
         >
           {currTime === time && !timerActive ? time : displayTime}
-        </text>
+        </motion.text>
       </motion.svg>
       <button onClick={() => handleClick()}>start</button>
     </div>

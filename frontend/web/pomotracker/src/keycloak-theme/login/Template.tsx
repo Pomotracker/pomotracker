@@ -8,7 +8,6 @@ import { type TemplateProps } from "keycloakify/login/TemplateProps";
 import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
-import Circle from "../../components/Circle";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
   const {
@@ -42,7 +41,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
       `${url.resourcesCommonPath}/lib/zocial/zocial.css`,
       `${url.resourcesPath}/css/login.css`,
     ],
-    scripts: ["https://cdn.tailwindcss.com"],
+    scripts: [],
     htmlClassName: getClassName("kcHtmlClass"),
     bodyClassName: getClassName("kcBodyClass"),
   });

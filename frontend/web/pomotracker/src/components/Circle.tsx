@@ -46,10 +46,6 @@ const Circle: React.FC<CircleProps> = ({ radius }) => {
   }
 
   useEffect(() => {
-    console.log("angle", angle);
-  }, []);
-
-  useEffect(() => {
     const interval = setInterval(() => {
       // increase the angle of rotation
       setAngle(angle - 0.2);
