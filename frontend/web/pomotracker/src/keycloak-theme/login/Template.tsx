@@ -8,6 +8,9 @@ import { type TemplateProps } from "keycloakify/login/TemplateProps";
 import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "./kcContext";
 import type { I18n } from "./i18n";
+import { motion } from "framer-motion";
+
+import TimerLoader from "@/components/timer/TimerLoader";
 
 export default function Template(props: TemplateProps<KcContext, I18n>) {
   const {
@@ -56,12 +59,19 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
 
   return (
     <div className={"mt-0"}>
-      <div
+      <div className={"flex justify-center"}>
+        <TimerLoader size={800} strokeWidth={35} time={3} mode="white" />
+      </div>
+
+      <motion.div
         className={clsx(
           getClassName("kcFormCardClass"),
           displayWide && getClassName("kcFormCardAccountClass"),
-          "min-w-[80dvw] min-h-[90dvh] bg-transparent"
+          "bg-transparent shadow-lg"
         )}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ ease: "easeIn", duration: 1.2 }}
       >
         <header className={getClassName("kcFormHeaderClass")}>
           {realm.internationalizationEnabled &&
@@ -129,7 +139,9 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
               </div>
               <div className="col-md-10">
                 {showUsernameNode}
-                <div className={getClassName("kcFormGroupClass")}>
+                <div
+                  className={(getClassName("kcFormGroupClass"), "space-y-2")}
+                >
                   <div id="kc-username">
                     <label id="kc-attempted-username">
                       {auth?.attemptedUsername}
@@ -239,10 +251,10 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
                 </form>
               )}
             {displayInfo && (
-              <div id="kc-info" className={getClassName("kcSignUpClass")}>
+              <div className={(getClassName("kcSignUpClass"), "pb-3")}>
                 <div
                   id="kc-info-wrapper"
-                  className={getClassName("kcInfoAreaWrapperClass")}
+                  className={(getClassName("kcInfoAreaWrapperClass"), "mb-2")}
                 >
                   {infoNode}
                 </div>
@@ -250,7 +262,7 @@ export default function Template(props: TemplateProps<KcContext, I18n>) {
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

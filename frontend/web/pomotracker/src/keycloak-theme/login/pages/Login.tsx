@@ -5,11 +5,12 @@ import type { PageProps } from "keycloakify/login/pages/PageProps";
 import { useGetClassName } from "keycloakify/login/lib/useGetClassName";
 import type { KcContext } from "../kcContext";
 import type { I18n } from "../i18n";
+import { motion } from "framer-motion";
 
 // import loginHeaderSvgUrl from "../assets/login-header.svg";
 
-import userLoginIconSvgUrl from "../assets/user-login-icon.svg";
-import Timer from "../../../components/timer/Timer";
+// import userLoginIconSvgUrl from "../assets/user-login-icon.svg";
+// import Timer from "../../../components/timer/Timer";
 
 const my_custom_param = new URL(window.location.href).searchParams.get(
   "my_custom_param"
@@ -68,9 +69,12 @@ export default function Login(
       displayWide={true}
       headerNode={msg("doLogIn")}
       infoNode={
-        <div id="kc-registration" className={"text-center mt-3, text-white"}>
+        <div
+          id="kc-registration"
+          className={"text-center mt-3, text-[#EEEEEE]"}
+        >
           <span>
-            {msg("noAccount")}
+            {msg("noAccount")}{" "}
             <a tabIndex={6} href={url.registrationUrl}>
               {msg("doRegister")}
             </a>
@@ -78,7 +82,7 @@ export default function Login(
         </div>
       }
     >
-      <div
+      <motion.div
         id="kc-form"
         className={
           (clsx(
@@ -89,9 +93,9 @@ export default function Login(
           "flex justify-center items-center, justify-items-center")
         }
       >
-        <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4 mt-20">
+        {/* <div className="flex-col justify-center items-center justify-items-center flex-1 mx-4 mt-20">
           <Timer size={400} strokeWidth={10} time={10} />
-        </div>
+        </div> */}
         <div
           id="kc-form-wrapper"
           className={
@@ -105,22 +109,12 @@ export default function Login(
             "flex-col justify-center items-center flex-1 mx-4")
           }
         >
-          <div className="flex flex-col justify-center items-center pb-[6vh]">
+          <div className="flex flex-col justify-center items-center pb-[6vh] pt-10">
             <div className="flex flex-col items-center pb-3">
               <span className="text-6xl text-white font-bold ">
                 Pomotracker
               </span>
               {/* <img src={loginHeaderSvgUrl} width="40px" /> */}
-            </div>
-            <div className="pb-2">
-              <h1 className="text-4xl font-semibold text-white">
-                Time To Hone In
-              </h1>
-            </div>
-            <div className="pb-2">
-              <h3 className="text-center text-white">
-                Enter your login credentials
-              </h3>
             </div>
           </div>
 
@@ -149,7 +143,7 @@ export default function Login(
                         <label
                           htmlFor={autoCompleteHelper}
                           className={
-                            (getClassName("kcLabelClass"), "text-white")
+                            (getClassName("kcLabelClass"), "text-[#EEEEEE]")
                           }
                         >
                           {msg(label)}
@@ -167,7 +161,7 @@ export default function Login(
                           autoFocus={true}
                           autoComplete="off"
                         />
-                        <img src={userLoginIconSvgUrl} />
+                        {/* <img src={userLoginIconSvgUrl} /> */}
                       </>
                     );
                   })()}
@@ -197,7 +191,7 @@ export default function Login(
                 <div id="kc-form-options">
                   {realm.rememberMe && !usernameHidden && (
                     <div className="checkbox">
-                      <label className="text-white">
+                      <label className="text-[#EEEEEE]">
                         <input
                           tabIndex={3}
                           id="rememberMe"
@@ -216,7 +210,8 @@ export default function Login(
                 </div>
                 <div
                   className={
-                    (getClassName("kcFormOptionsWrapperClass"), "text-white")
+                    (getClassName("kcFormOptionsWrapperClass"),
+                    "text-[#EEEEEE]")
                   }
                 >
                   {realm.resetPasswordAllowed && (
@@ -244,7 +239,7 @@ export default function Login(
                   className={clsx(
                     getClassName("kcButtonBlockClass"),
                     getClassName("kcButtonLargeClass"),
-                    "rounded-xl min-h-[7dvh] bg-blue-500 hover:bg-blue-700 text-white"
+                    "rounded-xl min-h-[7dvh] min-w-[10dvw] bg-[#76ABAE] hover:bg-[#76ABAE]-300 text-[#EEEEEE] mb-8"
                   )}
                   name="login"
                   id="kc-login"
@@ -288,7 +283,7 @@ export default function Login(
             </ul>
           </div>
         )}
-      </div>
+      </motion.div>
     </Template>
   );
 }

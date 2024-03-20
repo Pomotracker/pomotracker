@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .my-color {
-	color: white;
+	color: #EEEEEE;
 }
 
 .my-font {
@@ -11,19 +11,26 @@
 }
 
 .my-root-class {
-	background: black;
+	/* background: #222831; */
+	background:#31363F;
 	animation: gradient 5s ease infinite;
 	
 }
 
 .my-root-class body {
-	background:black;
+	/* background:#222831; */
+	background:#31363F;
 	height: 100vh;
 }
 
 .kcFormCardClass{
-	border-radius: 5rem;
-	min-width:50dvw;
+	border-radius: 4rem;
+	min-width:25dvw;
+	min-height:30dvh;
+	/* background:#31363F */
+	background: #222831;
+	margin-top:0dvh;
+
 }
 
 .kcInputClass{

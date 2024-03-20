@@ -2,7 +2,7 @@ import { createRoot } from "react-dom/client";
 import { StrictMode, lazy, Suspense } from "react";
 import { kcContext as kcLoginThemeContext } from "./keycloak-theme/login/kcContext";
 import { BrowserRouter } from "react-router-dom";
-import Loader from "./components/loader/loader";
+import Loader from "@/components/loader/Loader";
 
 const KcLoginThemeApp = lazy(() => import("./keycloak-theme/login/KcApp"));
 
